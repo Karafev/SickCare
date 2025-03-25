@@ -27,6 +27,9 @@
                             <input type="email" name="email" placeholder="Email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" class="form-control">
                         </div>
                         <div class="form-group mb-3">
+                            <input type="text" name="maladie" placeholder="Maladie" class="form-control" >
+                        </div>
+                        <div class="form-group mb-3">
                             <input type="password" name="mot_de_passe" placeholder="mot de passe" class="form-control" >
                         </div>
                         <div class="form-group mb-3">

@@ -37,7 +37,7 @@ class Recettes extends BaseController
 
                 $etapes = $this->request->getPost('etape_recette');
                 if (is_array($etapes)) {
-                    $recette->etape_recette = implode("\n", $etapes);
+                    $recette->etape_recette = implode(",\n", $etapes);
                 }
 
                 $recette->save();
@@ -77,6 +77,6 @@ class Recettes extends BaseController
             }
             $recette->delete();
         }
-        return redirect()->to('/recettes')->with('success', 'Recette supprimée avec succès!');
+        return redirect()->to('/sickcares')->with('success', 'Recette supprimée avec succès!');
     }
 }

@@ -28,6 +28,7 @@
                     <input type="text" name="etape_recette[]" required><br />
 
                 </div>
+                
             <br>
                 <div class="div-create" id="step-container">
                     <input class="input-button" type="submit" name="submit" value="Ajouter recette" />
@@ -48,6 +49,7 @@
         container.appendChild(newInput);
         container.appendChild(document.createElement("br"));
     }
+
 
 
     function addStepField() {

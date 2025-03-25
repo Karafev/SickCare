@@ -33,3 +33,9 @@ $routes->get('/', 'Users::Users', ['filter' => 'authGuard']);
 $routes->get('/Users', 'Users::index', ['filter' => 'authGuard']);
 $routes->get('/utilisateurs/delete/(:num)', 'Users::delete/$1', ['filter' => 'authGuard']);
 $routes->post('/utilisateurs/delete/(:num)', 'Users::delete/$1', ['filter' => 'authGuard']);
+
+$routes->get('/maladies', 'Maladies::index', ['filter' => 'authGuard']);
+$routes->get('/', 'Maladies::Maladies', ['filter' => 'authGuard']); 
+$routes->get('/Maladies', 'Maladies::index', ['filter' => 'authGuard']);
+$routes->get('/maladies/delete/(:num)', 'Maladies::delete/$1', ['filter' => 'authGuard']);
+$routes->post('/maladies/delete/(:num)', 'Maladies::delete/$1', ['filter' => 'authGuard']);

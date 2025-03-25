@@ -1,165 +1,158 @@
-
-body{
+/* Fond et police */
+body {
     background-image: url('http://localhost/~fevzican.karamercan/SickCare/public/assets/image/Pouce-en-lair.webp');
     background-size: cover;
-    backdrop-filter: blur(7px);
     font-family: 'Roboto', sans-serif;
+    position: relative;
 }
-.insc{
-    background-color: black;
-    color:white;
-    width: 30%;
-    height: 3%;
-    
 
+
+
+/* Boutons inscription & connexion */
+.insc, .conn, .supr {
+    width: 30%;
+    padding: 10px;
+    border-radius: 5px;
     transition: all 1s;
-    border-radius: 5px;
-    border-color:black ;
+    border: none;
+    font-weight: bold;
+    color: white;
 }
-.insc:hover{
+
+.insc {
+    background-color: black;
+}
+
+.insc:hover {
     background-color: rgb(70, 70, 70);
-    border-radius: 5px;
 }
-.conn{
-    color:white;
+
+.conn {
     background-color: #198754;
     border-color: #198754;
-    width: 30%;
-    height: 3%;
-
-    transition: all 1s;
-    border-radius: 5px;
 }
-.conn:hover{
+
+.conn:hover {
     background-color: #21b16e;
-    border-radius: 5px;
-}
-strong{
-    font-weight: 1000;
-    font-size: larger;
-
 }
 
-.form1{
-
-    text-align: center;
-
+/* Formulaire */
+.form2 {
+    width: 100%;
+    border: none;
+    margin-left: 10%;
+    margin-top: 15px;
 }
-.form2{
-    
-    background-color: none;
-    width:100%;
-    border:none;
-    margin-left:10%;
-    margin-top:15px;
-    
-}
-.div2{
-    
-    border: solid;
-    width: 75%;
-    margin-left: 11%;
-    background-color: grey;
+
+/* Style carte commune */
+.card-style {
+    background: radial-gradient(circle, rgb(146, 146, 146) 59%, rgb(122, 122, 122) 98%);
+    border-style: double;
     border-radius: 25px;
-    margin-top:25px;
     padding: 10px;
     box-shadow: 1px 1px 5px;
 }
-button{
 
-    max-width: 100%;
-
+/* Recettes */
+.Recette {
+    width: 30%;
+    margin-top: 25px;
 }
 
-h1{
-    background: rgb(122,122,122);
-    background: radial-gradient(circle, rgba(122,122,122,1) 59%, rgb(141, 141, 141) 98%);
+/* Conteneur de recettes */
+.Box-Recette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Titre principal */
+h1 {
     text-align: center;
-    border: solid;
-    border-radius: 25px;
-    border-color: black;
-    padding:5px;
-    margin-left: 35%;
-    margin-right: 35%;
-    border-style: double;
-    box-shadow: 5px 5px 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    padding: 15px;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 10px black;
 }
 
-details{
+/* Détails (création de recette) */
+details {
     text-align: center;
     background: radial-gradient(circle, rgb(158, 158, 158) 59%, rgb(141, 141, 141) 98%);
-
-    border: solid;
+    border: double black;
     border-radius: 25px;
-    border-style: double;
-    border-color: black;
-    padding:15px;
-    width:75%;
-
-
-    transition: background-color 0.5s, box-shadow 0.3s ease-in-out, max-height 0.5s ease-out; /* Transition fluide pour tout */
+    padding: 15px;
+    width: 35%;
+    transition: background-color 0.5s, box-shadow 0.3s ease-in-out, max-height 0.5s ease-out;
     box-shadow: 2.5px 2.5px 10px;
-
 }
 
-details:hover{
-    background-color:gray;
+details:hover,
+details:focus {
+    background-color: gray;
 }
-details:focus{
-    background-color:gray;
-}
-.div-create{
-    margin-left:12.5%;
+
+.div-create {
     text-align: center;
     margin-bottom: 10px;
-    width:75%;
-    }
-.div-details{
+    width: 100%;
+}
 
+.div-details {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-input{
-    width:75%;
-    margin-top: 5px;
-    height: 3%;
-}
-textarea{
+
+/* Champs de texte */
+input, textarea {
     width: 75%;
     margin-top: 5px;
+    border-radius: 5px;
 }
-br{
+
+input {
+    padding: 8px;
+}
+
+textarea {
+    padding: 10px;
+    resize: vertical;
+}
+
+/* Eléments divers */
+br {
     border: 1px;
 }
 
-div.main{
+div.main {
     
-    background: radial-gradient(circle, rgb(146, 146, 146) 59%, rgb(122, 122, 122) 98%);
+    background: radial-gradient(circle, rgb(146, 146, 146, 0.7) 59%, rgb(122, 122, 122, 0.7) 98%);
     text-align: center;
-    border: solid;
-    border-style: double;
+    border: double black;
     border-radius: 25px;
-    border-color: black;
-    padding:10px;
-    margin-left: 32.5%;
-    margin-right: 32.5%;
+    padding: 10px;
     box-shadow: 5px 5px 10px;
 }
 
-div.main1{
+div.main1 {
     text-align: center;
     background-color: aliceblue;
 }
 
-
-.Supr{
+.Supr {
     border-radius: 15%;
     transition: all 1s;
     box-shadow: 1.5px 1.5px 5px;
     border-color: white;
+    color: black;
+    position: relative;
+    bottom: 0;
 }
-.Supr:hover{
+
+.Supr:hover {
     background-color: red;
     color: white;
     border-color: red;
@@ -167,16 +160,38 @@ div.main1{
 
 label {
     display: block;
-    margin-top: auto;
 }
-.form-control{
+
+.form-control {
     height: auto;
 }
-input{
-    border-radius: 5px;
 
-}
-.input-button{
+.input-button {
     margin-top: 10px;
 }
 
+/* Utilisateurs */
+.Box-users {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.Utilisateur {
+    margin-top: 1.5%;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .insc, .conn, .Recette, details {
+        width: 90%;
+    }
+
+    input, textarea {
+        width: 90%;
+    }
+
+    .div-create, .div-details {
+        flex-direction: column;
+    }
+}

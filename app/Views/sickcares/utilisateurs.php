@@ -1,7 +1,8 @@
 <div class="main">
-    <div class="second">
-        <button class="conn" onclick="window.location.href ='http://localhost/~fevzican.karamercan/SickCare/public/sickcares'">Gestion du catalogue</button><br>
+    <button class="conn" onclick="window.location.href ='http://localhost/~fevzican.karamercan/SickCare/public/sickcares'">Gestion du catalogue</button><br>
+    <div class="Box-users">
         <?php foreach ($users as $user): ?>
+            <div class='Utilisateur card-style'>
                     <h2><?php echo "Utilisateur Numéro ".$user->id_compte; ?></h2>
                     <?php echo $user->nom; ?><br>
                     <?php echo $user->prenom; ?><br>
@@ -16,7 +17,7 @@
                         </form>
                     
                     <?php endif; ?>
-                    
+            </div>
         <?php endforeach; ?>
     </div>
 </div>
