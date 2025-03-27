@@ -20,6 +20,7 @@ class Recettes extends BaseController
         echo view('sickcares/templates/footer');
     }
 
+    
     public function create()
     {
         if ($this->request->getMethod() === 'POST') {

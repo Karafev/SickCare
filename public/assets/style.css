@@ -195,3 +195,22 @@ label {
         flex-direction: column;
     }
 }
+/* application/assets/css/simple-search.css */
+.simple-search {
+    display: flex;
+    margin: 20px 0;
+}
+
+.simple-search input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ddd;
+}
+
+.simple-search button {
+    padding: 8px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
