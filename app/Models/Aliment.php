@@ -18,4 +18,14 @@ class Aliment extends Model
     {
         return $this->belongsToMany(Recette::class, 'Composer', 'id_aliment', 'id_recette');
     }
+
+    public function maladies()
+    {
+        return $this->belongsToMany(
+            'App\Models\Maladie',         // Modèle cible
+            'provoque_alergie_a',        // Table de jointure
+            'id_aliment',                // Clé étrangère locale
+            'id_maladie'                 // Clé étrangère cible
+        );
+    }
 }

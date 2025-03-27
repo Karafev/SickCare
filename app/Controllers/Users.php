@@ -4,7 +4,8 @@ use App\Models\User;
 class Users extends BaseController {   
 
     public function index() {
-        $data['users'] = User::all();
+        $data['users'] = User::with('maladies')->get(); // ou ->get() si tu es dans Laravel
+
         $data['title'] = "Liste des Utilisateurs";
         
         echo view('sickcares/templates/header', $data);

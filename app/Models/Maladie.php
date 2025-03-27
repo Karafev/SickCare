@@ -16,7 +16,12 @@ class Maladie extends Model
     // Relation Many-to-Many avec Aliment via la table Composer
     public function aliments()
     {
-        return $this->belongsToMany(Aliment::class, 'provoque_alergie_à', 'id_maladie', 'id_aliment');
+        return $this->belongsToMany(
+            'App\Models\Aliment',        // Modèle cible
+            'provoque_alergie_a',        // Table de jointure
+            'id_maladie',                // Clé étrangère locale
+            'id_aliment'                 // Clé étrangère cible
+        );
     }
     public function users()
     {
