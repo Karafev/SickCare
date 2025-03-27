@@ -17,7 +17,6 @@
                 <?php echo view('sickcares/create'); ?>
             <?php endif; ?>
             <?php endif; ?>
-            <?php echo view('sickcares/search_form'); ?>
         </div>
             <br>
             <div class="Box-Recette">
