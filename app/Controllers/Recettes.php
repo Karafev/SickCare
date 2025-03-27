@@ -67,6 +67,40 @@ class Recettes extends BaseController
             echo view('sickcares/templates/footer');
         }
     }
+    public function search()
+{
+    $searchTerm = $this->request->getGet('q');
+    $selectedIngredients = $this->request->getGet('ingredients') ?? [];
+
+    // Construction de la requête
+    $query = Recette::with('aliments')
+        ->join('Composer', 'Composer.id_recette', '=', 'recettes.id_recette')
+        ->join('Aliment_recettes', 'Aliment_recettes.id_aliment', '=', 'Composer.id_aliment');
+
+    // Application des filtres
+    if (!empty($searchTerm)) {
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
+              ->orWhere('recettes.description_recette', 'LIKE', "%$searchTerm%")
+              ->orWhere('Aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
+        });
+    }
+
+    if (!empty($selectedIngredients)) {
+        $query->whereIn('Composer.id_aliment', $selectedIngredients);
+    }
+
+    // Préparation des données pour la vue
+    $data = [
+        'Recettes' => $query->get(), // <-- Ici on définit bien la variable Recettes
+        'allIngredients' => Aliment::orderBy('nom_aliment')->get(),
+        'selectedIngredients' => $selectedIngredients,
+        'searchTerm' => $searchTerm,
+        'title' => 'Résultats de recherche'
+    ];
+
+    return view('sickcares/index', $data);
+}
 
     public function delete($id)
     {
