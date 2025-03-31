@@ -1,5 +1,5 @@
 <div class="search-container">
-    <form action="<?= base_url('recettes/search') ?>" method="get">
+    <form action="<?= base_url('sickcares/search') ?>" method="get">
         <input type="text" name="q" value="<?= esc($q ?? '') ?>" placeholder="Rechercher une recette...">
         
         <div class="ingredient-filter">

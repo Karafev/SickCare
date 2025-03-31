@@ -41,5 +41,5 @@ $routes->get('/maladies/delete/(:num)', 'Maladies::delete/$1', ['filter' => 'aut
 $routes->post('/maladies/delete/(:num)', 'Maladies::delete/$1', ['filter' => 'authGuard']);
 
 // Dans app/Config/Routes.php
-$routes->get('recettes/search', 'Recettes::search');
-$routes->post('recettes/search', 'Recettes::search');
+$routes->get('sickcares/search', 'Recettes::search');
+$routes->post('sickcares/search', 'Recettes::search');

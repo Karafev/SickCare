@@ -45,11 +45,7 @@ class Recettes extends BaseController
                 $recette = new Recette();
                 $recette->nom_recette = $this->request->getPost('nom_recette');
                 $recette->description_recette = $this->request->getPost('description_recette');
-
-                $etapes = $this->request->getPost('etape_recette');
-                if (is_array($etapes)) {
-                    $recette->etape_recette = implode(",\n", $etapes);
-                }
+                $recette->etape_recette = $this->request->getPost('etape_recette');
 
                 $recette->save();
 
@@ -82,32 +78,45 @@ class Recettes extends BaseController
     $searchTerm = $this->request->getGet('q');
     $selectedIngredients = $this->request->getGet('ingredients') ?? [];
 
-    $query = Recette::with('aliments')
-        ->join('Composer', 'Composer.id_recette', '=', 'recettes.id_recette')
-        ->join('Aliment_recettes', 'Aliment_recettes.id_aliment', '=', 'Composer.id_aliment');
+    // Requête de base avec eager loading
+    $query = Recette::with(['aliments' => function($q) use ($selectedIngredients) {
+        if (!empty($selectedIngredients)) {
+            $q->whereIn('id_aliment', $selectedIngredients);
+        }
+    }]);
 
+    // Filtre par terme de recherche
     if (!empty($searchTerm)) {
         $query->where(function($q) use ($searchTerm) {
-            $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
-              ->orWhere('recettes.description_recette', 'LIKE', "%$searchTerm%")
-              ->orWhere('Aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
+            $q->where('nom_recette', 'LIKE', "%$searchTerm%")
+              ->orWhere('description_recette', 'LIKE', "%$searchTerm%")
+              ->orWhereHas('aliments', function($q) use ($searchTerm) {
+                  $q->where('nom_aliment', 'LIKE', "%$searchTerm%");
+              });
         });
     }
 
+    // Filtre par ingrédients sélectionnés
     if (!empty($selectedIngredients)) {
-        $query->whereIn('Composer.id_aliment', $selectedIngredients);
+        $query->whereHas('aliments', function($q) use ($selectedIngredients) {
+            $q->whereIn('id_aliment', $selectedIngredients);
+        }, '>=', count($selectedIngredients));
     }
 
+    // Récupération des résultats sans doublons
+    $recettes = $query->distinct()->get();
+
     $data = [
-        'Recettes' => $query->get(),
-        'allIngredients' => Aliment::orderBy('nom_aliment')->get(), // Déjà présent ici
+        'Recettes' => $recettes,
+        'allIngredients' => Aliment::orderBy('nom_aliment')->get(),
         'selectedIngredients' => $selectedIngredients,
         'searchTerm' => $searchTerm,
         'title' => 'Résultats de recherche'
     ];
-    echo view('sickcares/templates/header', $data);
-    echo view('sickcares/index', $data);
-    echo view('sickcares/templates/footer');
+
+    return view('sickcares/templates/header', $data)
+         . view('sickcares/index', $data)
+         . view('sickcares/templates/footer');
 }
     public function delete($id)
     {
