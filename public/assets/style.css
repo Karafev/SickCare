@@ -61,9 +61,10 @@ body {
 
 /* Conteneur de recettes */
 .Box-Recette {
+    margin-left:1%;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 2%;
 }
 
 /* Titre principal */
@@ -293,10 +294,8 @@ input[type="text"] {
 
 /* Section filtre */
 .ingredient-filter {
-    background:  rgb(122, 122, 122, 0.6);
   padding: 18px;
-  border-radius: 10px;
-  border: 3px double #000000;
+
 }
 
 .ingredient-filter h4 {

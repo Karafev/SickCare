@@ -4,7 +4,7 @@
     
         <input type="text" name="q" value="<?= esc($q ?? '') ?>" placeholder="Rechercher une recette...">
         <details id="Details-filtre">
-        <summary>Formulaire de création de recette</summary>
+        <summary>Filtre</summary>
         <div class="ingredient-filter">
             <h4>Filtrer par ingrédients :</h4>
             <div class="ingredient-list">
