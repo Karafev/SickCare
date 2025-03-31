@@ -283,7 +283,7 @@ input[type="text"] {
 .search-container input[type="text"]:focus {
   border-color: #4CAF50;
   background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80);
   border: 1px solid #ddd;
     border-radius: 4px;
 }
