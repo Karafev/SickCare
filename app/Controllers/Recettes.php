@@ -8,17 +8,27 @@ use App\Models\Etape;
 class Recettes extends BaseController
 {
     public function index()
-    {
-        // Correction : on récupère TOUTES les recettes avec leurs aliments
-        $recettes = Recette::with('aliments')->get();
+{
+    // Récupère toutes les recettes avec leurs aliments associés
+    $recettes = Recette::with('aliments')->get();
+    
+    // Récupère tous les ingrédients pour le filtre, triés par nom
+    $allIngredients = Aliment::orderBy('nom_aliment', 'ASC')->get();
 
-        $data['Recettes'] = $recettes;
-        $data['title'] = "Liste des recettes";
+    // Prépare les données pour la vue
+    $data = [
+        'Recettes' => $recettes,
+        'allIngredients' => $allIngredients, // Ajout de la variable manquante
+        'title' => "Liste des recettes",
+        'searchTerm' => '', // Initialisation pour éviter des erreurs dans la vue
+        'selectedIngredients' => [] // Initialisation du tableau des ingrédients sélectionnés
+    ];
 
-        echo view('sickcares/templates/header', $data);
-        echo view('sickcares/index', $data);
-        echo view('sickcares/templates/footer');
-    }
+    // Charge les vues avec les données
+    echo view('sickcares/templates/header', $data);
+    echo view('sickcares/index', $data);
+    echo view('sickcares/templates/footer');
+}
 
     
     public function create()
@@ -72,12 +82,10 @@ class Recettes extends BaseController
     $searchTerm = $this->request->getGet('q');
     $selectedIngredients = $this->request->getGet('ingredients') ?? [];
 
-    // Construction de la requête
     $query = Recette::with('aliments')
         ->join('Composer', 'Composer.id_recette', '=', 'recettes.id_recette')
         ->join('Aliment_recettes', 'Aliment_recettes.id_aliment', '=', 'Composer.id_aliment');
 
-    // Application des filtres
     if (!empty($searchTerm)) {
         $query->where(function($q) use ($searchTerm) {
             $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
@@ -90,18 +98,17 @@ class Recettes extends BaseController
         $query->whereIn('Composer.id_aliment', $selectedIngredients);
     }
 
-    // Préparation des données pour la vue
     $data = [
-        'Recettes' => $query->get(), // <-- Ici on définit bien la variable Recettes
-        'allIngredients' => Aliment::orderBy('nom_aliment')->get(),
+        'Recettes' => $query->get(),
+        'allIngredients' => Aliment::orderBy('nom_aliment')->get(), // Déjà présent ici
         'selectedIngredients' => $selectedIngredients,
         'searchTerm' => $searchTerm,
         'title' => 'Résultats de recherche'
     ];
-
-    return view('sickcares/index', $data);
+    echo view('sickcares/templates/header', $data);
+    echo view('sickcares/index', $data);
+    echo view('sickcares/templates/footer');
 }
-
     public function delete($id)
     {
         $recette = Recette::find($id);
