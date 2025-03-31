@@ -1,7 +1,10 @@
+
 <div class="search-container">
     <form action="<?= base_url('sickcares/search') ?>" method="get">
+    
         <input type="text" name="q" value="<?= esc($q ?? '') ?>" placeholder="Rechercher une recette...">
-        
+        <details id="Details-filtre">
+        <summary>Formulaire de création de recette</summary>
         <div class="ingredient-filter">
             <h4>Filtrer par ingrédients :</h4>
             <div class="ingredient-list">

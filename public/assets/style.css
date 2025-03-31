@@ -84,14 +84,15 @@ details {
     border: double black;
     border-radius: 25px;
     padding: 15px;
-    width: 35%;
+    width: 96%;
     transition: background-color 0.5s, box-shadow 0.3s ease-in-out, max-height 0.5s ease-out;
     box-shadow: 2.5px 2.5px 10px;
 }
 
+
 details:hover,
 details:focus {
-    background-color: gray;
+    background-color: rgb(199, 199, 199);
 }
 
 .div-create {
@@ -101,6 +102,8 @@ details:focus {
 }
 
 .div-details {
+    width: 40%;
+    margin-left: 30%;
     display: flex;
     align-items: center;
     justify-content: center;
