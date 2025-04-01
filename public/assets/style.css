@@ -148,6 +148,7 @@ div.main1 {
 
 .Supr {
     border-radius: 15%;
+    width: 50%;
     transition: all 1s;
     box-shadow: 1.5px 1.5px 5px;
     border-color: white;

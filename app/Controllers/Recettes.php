@@ -81,17 +81,17 @@ class Recettes extends BaseController
     // Requête de base avec eager loading
     $query = Recette::with(['aliments' => function($q) use ($selectedIngredients) {
         if (!empty($selectedIngredients)) {
-            $q->whereIn('id_aliment', $selectedIngredients);
+            $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
         }
     }]);
 
     // Filtre par terme de recherche
     if (!empty($searchTerm)) {
         $query->where(function($q) use ($searchTerm) {
-            $q->where('nom_recette', 'LIKE', "%$searchTerm%")
-              ->orWhere('description_recette', 'LIKE', "%$searchTerm%")
+            $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
+              ->orWhere('recettes.description_recette', 'LIKE', "%$searchTerm%")
               ->orWhereHas('aliments', function($q) use ($searchTerm) {
-                  $q->where('nom_aliment', 'LIKE', "%$searchTerm%");
+                  $q->where('Aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
               });
         });
     }
@@ -99,11 +99,10 @@ class Recettes extends BaseController
     // Filtre par ingrédients sélectionnés
     if (!empty($selectedIngredients)) {
         $query->whereHas('aliments', function($q) use ($selectedIngredients) {
-            $q->whereIn('id_aliment', $selectedIngredients);
+            $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
         }, '>=', count($selectedIngredients));
     }
 
-    // Récupération des résultats sans doublons
     $recettes = $query->distinct()->get();
 
     $data = [
