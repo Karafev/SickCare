@@ -21,11 +21,6 @@ class Aliment extends Model
 
     public function maladies()
     {
-        return $this->belongsToMany(
-            'App\Models\Maladie',         // Modèle cible
-            'provoque_alergie_a',        // Table de jointure
-            'id_aliment',                // Clé étrangère locale
-            'id_maladie'                 // Clé étrangère cible
-        );
+        return $this->belongsToMany(Maladie::class,'provoque_alergie_à','id_aliment','id_maladie');
     }
 }
