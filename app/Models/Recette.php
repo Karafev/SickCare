@@ -13,7 +13,7 @@ class Recette extends Model
     protected $fillable = [
         'nom_recette',
         'description_recette',
-        'image_recette',  // Ajouter l'image à la liste des champs remplissables
+        'image_recette', 
     ];
 
     // Relation Many-to-Many avec Aliment via la table Composer

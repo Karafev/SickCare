@@ -153,7 +153,7 @@ public function search()
         'allIngredients' => Aliment::orderBy('nom_aliment')->get(),
         'selectedIngredients' => $selectedIngredients,
         'searchTerm' => $searchTerm,
-        'filterEnabled' => session()->get('filter_enabled', true), // ✅ ajouté ici
+        'filterEnabled' => session()->get('filter_enabled', true), 
         'title' => 'Résultats de recherche'
     ];
 
@@ -169,7 +169,7 @@ public function search()
         if ($recette) {
             $recette->aliments()->detach();
             if (method_exists($recette, 'etapes')) {
-                $recette->etapes()->delete(); // seulement si tu gères des étapes liées
+                $recette->etapes()->delete(); 
             }
             $recette->delete();
         }

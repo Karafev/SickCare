@@ -174,9 +174,9 @@ class UserCtl extends ResourceController
         }
 
         $authHeader = $authHeader->getValue();
-        $token = str_replace("Bearer ", "", $authHeader);  // Enlever "Bearer " du token
+        $token = str_replace("Bearer ", "", $authHeader);  
         
-        JWT::$leeway = 60; // Leeway pour le token
+        JWT::$leeway = 60; 
         $decoded = JWT::decode($token, new Key($key, 'HS256'));
 
         if ($decoded) {
@@ -191,7 +191,7 @@ class UserCtl extends ResourceController
             // Dans la méthode qui récupère les recettes
             foreach ($recettes as $recette) {
                 // Supprimer les éventuels préfixes incorrects
-                $image = basename($recette->image_recette); // Ne garde que le nom du fichier
+                $image = basename($recette->image_recette); 
                 $recette->image_recette = 'assets/image/recettes/' . $image;
             }
             
