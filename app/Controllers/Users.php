@@ -4,7 +4,7 @@ use App\Models\User;
 class Users extends BaseController {   
 
     public function index() {
-        $data['users'] = User::with('maladies')->get(); // ou ->get() si tu es dans Laravel
+        $data['users'] = User::with('maladies')->get();
 
         $data['title'] = "Liste des Utilisateurs";
         

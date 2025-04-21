@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maladie extends Model
 {
-    protected $table = 'Maladie';
+    protected $table = 'maladie';
     protected $primaryKey = 'id_maladie';
     public $timestamps = false;
 
@@ -13,13 +13,10 @@ class Maladie extends Model
         'nom',
     ];
 
-    // Relation Many-to-Many avec Aliment via la table Composer
+    // Relation Many-to-Many avec Aliment via la table pivot
     public function aliments()
     {
         return $this->belongsToMany(Aliment::class, 'provoque_alergie_à', 'id_maladie', 'id_aliment');
     }
-    public function users()
-    {
-        return $this->belongsToMany(Aliment::class, 'Etre_malade', 'id_maladie', 'id_compte');
-    }
 }
+

@@ -4,6 +4,7 @@ use App\Models\User;
 
 class ConnexionController extends BaseController
 {
+    
     public function index()
     {
         helper(['form']);
@@ -27,12 +28,13 @@ class ConnexionController extends BaseController
             if ($authenticatePassword) {
                 // Set session data
                 $ses_data = [
-                    'id_utilisateur' => $user->id_compte,
+                    'id_compte' => $user->id_compte,
                     'nom' => $user->nom,
                     'prenom' => $user->prenom,
                     'email' => $user->email,
                     'isLoggedIn' => TRUE
                 ];
+                
                 
                 $session->set($ses_data);
 
