@@ -1,5 +1,5 @@
 <div class="main">
-    <button class="conn" onclick="window.location.href ='http://localhost/SickCare/public/sickcares'">Gestion du catalogue</button><br>
+    <button class="conn" onclick="window.location.href ='sickcares'">Gestion du catalogue</button><br>
     <div class="Box-users">
         <?php foreach ($users as $user): ?>
             <div class='Utilisateur card-style'>

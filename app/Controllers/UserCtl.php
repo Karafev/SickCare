@@ -183,8 +183,23 @@ class UserCtl extends ResourceController
             // Récupérer les informations de l'utilisateur avec les maladies et les aliments
             $user = User::with(['maladies', 'maladies.aliments'])->find($decoded->data->id_compte);
 
-            // Récupérer toutes les recettes disponibles sans filtrage
-            $recettes = Recette::with('aliments')->get();  // On récupère toutes les recettes avec les aliments associés
+            // Récupérer toutes les recettes disponibles avec leurs images
+            $recettes = Recette::with('aliments')->get();
+
+            // Ajouter l'image de chaque recette au tableau de données
+            // Dans la méthode de votre contrôleur qui retourne les recettes
+            // Dans la méthode qui récupère les recettes
+            foreach ($recettes as $recette) {
+                // Supprimer les éventuels préfixes incorrects
+                $image = basename($recette->image_recette); // Ne garde que le nom du fichier
+                $recette->image_recette = 'assets/image/recettes/' . $image;
+            }
+            
+            
+            
+            
+
+
 
             // Formater la réponse avec les données de l'utilisateur et les recettes
             $response = [
@@ -194,7 +209,7 @@ class UserCtl extends ResourceController
                 'data' => [
                     'profile' => $decoded,
                     'user_data' => $user,
-                    'recettes' => $recettes  // Ajouter les recettes sans les filtrer
+                    'recettes' => $recettes  // Ajouter les recettes avec leurs images
                 ]
             ];
             return $this->respond($response);
@@ -210,11 +225,6 @@ class UserCtl extends ResourceController
         return $this->fail($response, 401);
     }
 }
-
-
-
-
-
 
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)

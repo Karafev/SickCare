@@ -67,33 +67,38 @@ class Recettes extends BaseController
             'nom_recette' => 'required|min_length[3]',
             'description_recette' => 'required',
             'aliment_recette' => 'required',
-            'etape_recette' => 'required'
+            'etape_recette' => 'required',
+            'image_recette' => 'uploaded[image_recette]|is_image[image_recette]|max_size[image_recette,2048]'
         ];
 
         if ($this->validate($rules)) {
-            // Instancier la recette
+            // Instanciation de la recette
             $recette = new Recette();
             $recette->nom_recette = $this->request->getPost('nom_recette');
             $recette->description_recette = $this->request->getPost('description_recette');
             $recette->etape_recette = $this->request->getPost('etape_recette');
 
-            // Sauvegarde la recette dans la base de données
+            // Gestion de l'image uploadée
+            $image = $this->request->getFile('image_recette');
+            if ($image && $image->isValid() && !$image->hasMoved()) {
+                $imageName = $image->getRandomName();
+                $image->move(ROOTPATH . 'public/assets/image/recettes', $imageName);
+                $recette->image_recette = '/assets/image/recettes/' . $imageName;
+            }
+
+            // Sauvegarde de la recette
             $recette->save();
 
-            // Maintenant que la recette est sauvegardée, récupère l'instance complète pour ajouter les aliments
-            $recette = Recette::find($recette->id_recette); // Recherche la recette fraîchement sauvegardée
-
-            // Ajout des aliments à la recette
+            // Lier les aliments
             $aliments = $this->request->getPost('aliment_recette');
             foreach ($aliments as $nom_aliment) {
                 $aliment = Aliment::firstOrCreate(['nom_aliment' => $nom_aliment]);
                 $recette->aliments()->attach($aliment->id_aliment);
             }
 
-            // Redirige avec succès
             return redirect()->to('/sickcares')->with('success', 'Recette créée avec succès!');
         } else {
-            // Si la validation échoue
+            // Affiche les erreurs de validation
             $data['title'] = 'Ajouter une recette';
             $data['validation'] = $this->validator;
             echo view('sickcares/templates/header', $data);
@@ -101,6 +106,7 @@ class Recettes extends BaseController
             echo view('sickcares/templates/footer');
         }
     } else {
+        // GET : afficher le formulaire
         $data['title'] = 'Ajouter une recette';
         echo view('sickcares/templates/header', $data);
         echo view('sickcares/create');
@@ -109,50 +115,53 @@ class Recettes extends BaseController
 }
 
 
-    public function search()
-    {
-        $searchTerm = $this->request->getGet('q');
-        $selectedIngredients = $this->request->getGet('ingredients') ?? [];
 
-        // Requête de base avec eager loading
-        $query = Recette::with(['aliments' => function($q) use ($selectedIngredients) {
-            if (!empty($selectedIngredients)) {
-                $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
-            }
-        }]);
+public function search()
+{
+    $searchTerm = $this->request->getGet('q');
+    $selectedIngredients = $this->request->getGet('ingredients') ?? [];
 
-        // Filtre par terme de recherche
-        if (!empty($searchTerm)) {
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
-                  ->orWhere('recettes.description_recette', 'LIKE', "%$searchTerm%")
-                  ->orWhereHas('aliments', function($q) use ($searchTerm) {
-                      $q->where('Aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
-                  });
-            });
-        }
-
-        // Filtre par ingrédients sélectionnés
+    // Requête de base avec eager loading
+    $query = Recette::with(['aliments' => function($q) use ($selectedIngredients) {
         if (!empty($selectedIngredients)) {
-            $query->whereHas('aliments', function($q) use ($selectedIngredients) {
-                $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
-            }, '>=', count($selectedIngredients));
+            $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
         }
+    }]);
 
-        $recettes = $query->distinct()->get();
-
-        $data = [
-            'Recettes' => $recettes,
-            'allIngredients' => Aliment::orderBy('nom_aliment')->get(),
-            'selectedIngredients' => $selectedIngredients,
-            'searchTerm' => $searchTerm,
-            'title' => 'Résultats de recherche'
-        ];
-
-        return view('sickcares/templates/header', $data)
-             . view('sickcares/index', $data)
-             . view('sickcares/templates/footer');
+    // Filtre par terme de recherche
+    if (!empty($searchTerm)) {
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
+              ->orWhere('recettes.description_recette', 'LIKE', "%$searchTerm%")
+              ->orWhereHas('aliments', function($q) use ($searchTerm) {
+                  $q->where('Aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
+              });
+        });
     }
+
+    // Filtre par ingrédients sélectionnés
+    if (!empty($selectedIngredients)) {
+        $query->whereHas('aliments', function($q) use ($selectedIngredients) {
+            $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
+        }, '>=', count($selectedIngredients));
+    }
+
+    $recettes = $query->distinct()->get();
+
+    $data = [
+        'Recettes' => $recettes,
+        'allIngredients' => Aliment::orderBy('nom_aliment')->get(),
+        'selectedIngredients' => $selectedIngredients,
+        'searchTerm' => $searchTerm,
+        'filterEnabled' => session()->get('filter_enabled', true), // ✅ ajouté ici
+        'title' => 'Résultats de recherche'
+    ];
+
+    return view('sickcares/templates/header', $data)
+         . view('sickcares/index', $data)
+         . view('sickcares/templates/footer');
+}
+
 
     public function delete($id)
     {

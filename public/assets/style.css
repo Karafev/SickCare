@@ -241,7 +241,7 @@ body {
 
 /* Recettes */
 .Recette {
-    width: 30%;
+    width: 45%;
     margin-top: 25px;
 }
 
@@ -701,4 +701,9 @@ input[type="text"] {
     .btn-submit {
         width: auto;
     }
+}
+img {
+    border-style: double;
+    border-color: #000; /* Choisis la couleur de la bordure */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Ombre portée avec une couleur semi-transparente */
 }

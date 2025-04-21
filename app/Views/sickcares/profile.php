@@ -1,6 +1,6 @@
 <div class="main">
     <div class="profile-info">
-    <button class="conn" onclick="window.location.href ='http://localhost/SickCare/public/sickcares'">Retour home</button><br>
+    <button class="conn"onclick="window.location.href = '<?= base_url('sickcares') ?>'" >Retour home</button><br>
         <h2>Informations du profil</h2>
         <div class="profile-details">
             <p><strong>Nom :</strong> <?= esc($user->nom) ?></p>
@@ -22,6 +22,6 @@
             <p>Aucune maladie associée.</p>
         <?php endif; ?>
 
-        <button class="conn" onclick="window.location.href ='http://localhost/SickCare/public/profile/edit'">Modifier le profil</button>
+        <button class="conn" onclick="window.location.href = '<?= base_url('profile/edit') ?>'">Modifier le profil</button>
     </div>
 </div>
