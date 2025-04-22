@@ -5,19 +5,18 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->setAutoRoute(false);
-$routes->post('userctl/login', 'UserCtl::login');
-$routes->post('userctl/register', 'UserCtl::register');
-$routes->get('userctl/details', 'UserCtl::details');
-$routes->get('api/donnees/complete', 'UserCtl::getAllData');
+$routes->post('/userctl/login', 'UserCtl::login');
+$routes->post('/userctl/register', 'UserCtl::register');
+$routes->get('/userctl/details', 'UserCtl::details');
 
-$routes->post('api/login', 'UserCtl::login');
+$routes->post('/api/login', 'UserCtl::login');
 
 
-$routes->post('api/register', 'UserCtl::register');
-$routes->get('api/register', 'UserCtl::register');
+$routes->post('/api/register', 'UserCtl::register');
+$routes->get('/api/register', 'UserCtl::register');
 
-$routes->post('api/details', 'UserCtl::details');
-$routes->get('api/details', 'UserCtl::details');
+$routes->post('/api/details', 'UserCtl::details');
+$routes->get('/api/details', 'UserCtl::details');
 
 
 $routes->get('/', 'Home::index');

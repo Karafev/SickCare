@@ -1,7 +1,11 @@
 /* Fond et police */
 body {
-    background-image: url('http://localhost/SickCare/public/assets/image/Pouce-en-lair.webp');
-    background-size: cover;
+    background-image: url('http://localhost/~fevzican.karamercan/SickCare/public/assets/image/Pouce-en-lair.webp');
+    background-attachment: fixed;
+    background-size: cover;  /* Pour que l'image couvre toute la surface de la page */
+    background-position: center;
+
+
     font-family: 'Roboto', sans-serif;
     position: relative;
 }
@@ -102,7 +106,7 @@ body {
 }
 /* Conteneur principal */
 .main {
-    max-width: 800px;
+    max-width: 80%;
     margin: 40px auto;
     padding: 20px;
     background-color: #f9f9f9;
