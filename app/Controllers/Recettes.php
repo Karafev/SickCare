@@ -124,7 +124,7 @@ public function search()
     // Requête de base avec eager loading
     $query = Recette::with(['aliments' => function($q) use ($selectedIngredients) {
         if (!empty($selectedIngredients)) {
-            $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
+            $q->whereIn('aliment_recettes.id_aliment', $selectedIngredients);
         }
     }]);
 
@@ -134,7 +134,7 @@ public function search()
             $q->where('recettes.nom_recette', 'LIKE', "%$searchTerm%")
               ->orWhere('recettes.description_recette', 'LIKE', "%$searchTerm%")
               ->orWhereHas('aliments', function($q) use ($searchTerm) {
-                  $q->where('Aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
+                  $q->where('aliment_recettes.nom_aliment', 'LIKE', "%$searchTerm%");
               });
         });
     }
@@ -142,7 +142,7 @@ public function search()
     // Filtre par ingrédients sélectionnés
     if (!empty($selectedIngredients)) {
         $query->whereHas('aliments', function($q) use ($selectedIngredients) {
-            $q->whereIn('Aliment_recettes.id_aliment', $selectedIngredients);
+            $q->whereIn('aliment_recettes.id_aliment', $selectedIngredients);
         }, '>=', count($selectedIngredients));
     }
 

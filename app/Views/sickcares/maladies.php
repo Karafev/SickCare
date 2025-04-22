@@ -7,7 +7,7 @@
                 <h2><?php echo "Maladie Numéro " . $maladie->id_maladie; ?></h2>
                 <p><?php echo $maladie->nom; ?></p>
                 
-                <h3>Aliments associés :</h3>
+                <h3>Aliments interdit(s) :</h3>
                 <ul>
                     <?php foreach ($maladie->aliments as $aliment): ?>
                         <li><?php echo esc($aliment->nom_aliment); ?></li>
