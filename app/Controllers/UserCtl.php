@@ -194,12 +194,6 @@ class UserCtl extends ResourceController
                 $image = basename($recette->image_recette); 
                 $recette->image_recette = 'assets/image/recettes/' . $image;
             }
-            
-            
-            
-            
-
-
 
             // Formater la réponse avec les données de l'utilisateur et les recettes
             $response = [

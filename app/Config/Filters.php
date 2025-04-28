@@ -29,6 +29,7 @@ class Filters extends BaseFilters
         'toolbar' => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'authGuard' => \App\Filters\AuthGuard::class,
+        'adminGuard' => \App\Filters\AdminGuard::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'cors'          => Cors::class,

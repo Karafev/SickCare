@@ -9,7 +9,7 @@ class Home extends BaseController
         // Vérifie si un utilisateur est connecté
         if (session()->has('utilisateur')) {
             // Redirige vers la page filtrée
-            return redirect()->to('/dashboard');
+            return redirect()->to('/sickcares');
         }
 
         // Sinon, page d’accueil publique par défaut

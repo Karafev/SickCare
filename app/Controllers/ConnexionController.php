@@ -32,6 +32,7 @@ class ConnexionController extends BaseController
                     'nom' => $user->nom,
                     'prenom' => $user->prenom,
                     'email' => $user->email,
+
                     'isLoggedIn' => TRUE
                 ];
                 
