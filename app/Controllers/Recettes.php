@@ -3,7 +3,6 @@ namespace App\Controllers;
 
 use App\Models\Recette;
 use App\Models\Aliment;
-use App\Models\Etape;
 
 class Recettes extends BaseController
 {

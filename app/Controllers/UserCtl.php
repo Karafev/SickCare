@@ -187,8 +187,6 @@ class UserCtl extends ResourceController
             $recettes = Recette::with('aliments')->get();
 
             // Ajouter l'image de chaque recette au tableau de données
-            // Dans la méthode de votre contrôleur qui retourne les recettes
-            // Dans la méthode qui récupère les recettes
             foreach ($recettes as $recette) {
                 // Supprimer les éventuels préfixes incorrects
                 $image = basename($recette->image_recette); 

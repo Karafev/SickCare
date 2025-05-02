@@ -10,7 +10,6 @@
     <!-- Si l'utilisateur est connecté -->
     <?php if (session()->has('isLoggedIn') && session('isLoggedIn')): ?>
         <p>Bienvenue <strong><?= esc(session()->get('nom')) ?></strong></p><br>
-        <p>Vous avez <strong><?= esc(session()->get('maladies')) ?></strong></p>
 
         <a href="<?= base_url('deconnexion') ?>">Déconnexion</a>
         <br><br>
